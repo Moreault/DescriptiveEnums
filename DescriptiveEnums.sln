@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.32912.340
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DescriptiveEnums", "DescriptiveEnums\DescriptiveEnums.csproj", "{37A9E82B-CC1E-43FC-9F2B-7BB38A68F68D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DescriptiveEnums.Tests", "DescriptiveEnums.Tests\DescriptiveEnums.Tests.csproj", "{7C161E86-133D-4F0D-9EC2-30A7413E061E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37A9E82B-CC1E-43FC-9F2B-7BB38A68F68D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37A9E82B-CC1E-43FC-9F2B-7BB38A68F68D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37A9E82B-CC1E-43FC-9F2B-7BB38A68F68D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37A9E82B-CC1E-43FC-9F2B-7BB38A68F68D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C161E86-133D-4F0D-9EC2-30A7413E061E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C161E86-133D-4F0D-9EC2-30A7413E061E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C161E86-133D-4F0D-9EC2-30A7413E061E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C161E86-133D-4F0D-9EC2-30A7413E061E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {982D3AC6-9446-4732-B6DF-2BBFBCDAFF78}
+	EndGlobalSection
+EndGlobal
