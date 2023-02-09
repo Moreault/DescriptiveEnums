@@ -61,11 +61,20 @@ namespace ToolBX.DescriptiveEnums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Can&apos;t use the GetDescription method : enum value &apos;{0}&apos; does not have a [Description] on it.
         /// </summary>
         internal static string EnumDoesNotHaveDescription {
             get {
                 return ResourceManager.GetString("EnumDoesNotHaveDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value &apos;{0}&apos; is undefined for enum type &apos;{1}&apos;.
+        /// </summary>
+        internal static string EnumValueIsUndefined {
+            get {
+                return ResourceManager.GetString("EnumValueIsUndefined", resourceCulture);
             }
         }
     }

@@ -101,4 +101,7 @@
 	<data name="EnumDoesNotHaveDescription" xml:space="preserve">
 		<value>Impossible d'utiliser la méthode 'GetDescription' : la valeur d'enum '{0}' n'a pas de [Description]</value>
 	</data>
+	<data name="EnumValueIsUndefined" xml:space="preserve">
+		<value>La valeur '{0}' est non-définie pour l'enum de type '{1}'</value>
+	</data>
 </root>

@@ -37,3 +37,16 @@ public void Method(MyEnum? value)
 	var description2 = value.TryGetDescription();
 }
 ```
+
+## Undefined values
+
+```c#
+public void Method(MyEnum value)
+{
+	//What if some bozo tries to pass something like (MyEnum)-8 for which there is no enum member defined?
+	value.ThrowIfUndefined(); //Will throw something along the lines of "Value '-8' is undefined for enum 'MyEnum'"
+
+	//Or you can do this if you don't like the above default message
+	value.ThrowIfUndefined("Better message!");
+}
+```

@@ -1,3 +1,5 @@
+using AutoFixture;
+
 namespace DescriptiveEnums.Tests;
 
 [TestClass]
@@ -131,6 +133,50 @@ public class EnumExtensionsTester
 
             //Assert
             result.Should().Be("AnotherThing");
+        }
+    }
+    
+    [TestClass]
+    public class ThrowIfUndefined : Tester
+    {
+        [TestMethod]
+        public void WhenValueIsUndefined_Throw()
+        {
+            //Arrange
+            var value = (DummyEnum)(-14);
+
+            //Act
+            var action = () => value.ThrowIfUndefined();
+
+            //Assert
+            action.Should().Throw<ArgumentException>().WithMessage(string.Format(Exceptions.EnumValueIsUndefined, value, typeof(DummyEnum)));
+        }
+
+        [TestMethod]
+        public void WhenValueIsUndefinedWithCustomMessage_ThrowWithCustomMessage()
+        {
+            //Arrange
+            var value = (DummyEnum)(-14);
+            var message = Fixture.Create<string>();
+
+            //Act
+            var action = () => value.ThrowIfUndefined(message);
+
+            //Assert
+            action.Should().Throw<ArgumentException>().WithMessage(message);
+        }
+
+        [TestMethod]
+        public void WhenValueIsDefined_DoNotThrow()
+        {
+            //Arrange
+            var value = Fixture.Create<DummyEnum>();
+
+            //Act
+            var action = () => value.ThrowIfUndefined();
+
+            //Assert
+            action.Should().NotThrow();
         }
     }
 }
