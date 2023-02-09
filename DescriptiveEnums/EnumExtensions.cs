@@ -48,9 +48,19 @@ public static class EnumExtensions
     /// <summary>
     /// Throws an <see cref="ArgumentException"/> if the value is undefined for type T. 
     /// </summary>
-    public static void ThrowIfUndefined<T>(this T value, string? message = null) where T : struct, Enum
+    public static T? ThrowIfUndefined<T>(this T? value, string? message = null) where T : struct, Enum
+    {
+        if (value == null) throw new ArgumentNullException(nameof(value));
+        return value.Value.ThrowIfUndefined(message);
+    }
+
+    /// <summary>
+    /// Throws an <see cref="ArgumentException"/> if the value is undefined for type T. 
+    /// </summary>
+    public static T ThrowIfUndefined<T>(this T value, string? message = null) where T : struct, Enum
     {
         if (!Enum.IsDefined(value)) 
             throw new ArgumentException(message ?? string.Format(Exceptions.EnumValueIsUndefined, value, typeof(T)));
+        return value;
     }
 }

@@ -50,3 +50,12 @@ public void Method(MyEnum value)
 	value.ThrowIfUndefined("Better message!");
 }
 ```
+
+```c#
+public MyEnum Value
+{
+	get => _value;
+	//You can also inline it in a set like so
+	init => _value = value.ThrowIfUndefined();
+}
+```

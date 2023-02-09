@@ -1,4 +1,5 @@
 using AutoFixture;
+using Newtonsoft.Json.Linq;
 
 namespace DescriptiveEnums.Tests;
 
@@ -177,6 +178,115 @@ public class EnumExtensionsTester
 
             //Assert
             action.Should().NotThrow();
+        }
+
+        [TestMethod]
+        public void WhenValueIsDefined_ReturnValueThatWasPassed()
+        {
+            //Arrange
+            var value = Fixture.Create<DummyEnum>();
+
+            //Act
+            var result = value.ThrowIfUndefined();
+
+            //Assert
+            result.Should().Be(value);
+        }
+
+        [TestMethod]
+        public void WhenValueIsNullableAndDefined_ReturnValueThatWasPassed()
+        {
+            //Arrange
+            var value = Fixture.Create<DummyEnum>();
+
+            //Act
+            var result = value.ThrowIfUndefined();
+
+            //Assert
+            result.Should().Be(value);
+        }
+    }
+
+    [TestClass]
+    public class ThrowIfUndefined_Nullable : Tester
+    {
+        [TestMethod]
+        public void WhenValueIsNull_Throw()
+        {
+            //Arrange
+            DummyEnum? value = null!;
+
+            //Act
+            var action = () => value.ThrowIfUndefined();
+
+            //Assert
+            action.Should().Throw<ArgumentNullException>().WithParameterName(nameof(value));
+        }
+
+        [TestMethod]
+        public void WhenValueIsUndefined_Throw()
+        {
+            //Arrange
+            var value = (DummyEnum?)(-14);
+
+            //Act
+            var action = () => value.ThrowIfUndefined();
+
+            //Assert
+            action.Should().Throw<ArgumentException>().WithMessage(string.Format(Exceptions.EnumValueIsUndefined, value, typeof(DummyEnum)));
+        }
+
+        [TestMethod]
+        public void WhenValueIsUndefinedWithCustomMessage_ThrowWithCustomMessage()
+        {
+            //Arrange
+            var value = (DummyEnum?)(-14);
+            var message = Fixture.Create<string>();
+
+            //Act
+            var action = () => value.ThrowIfUndefined(message);
+
+            //Assert
+            action.Should().Throw<ArgumentException>().WithMessage(message);
+        }
+
+        [TestMethod]
+        public void WhenValueIsDefined_DoNotThrow()
+        {
+            //Arrange
+            var value = Fixture.Create<DummyEnum?>();
+
+            //Act
+            var action = () => value.ThrowIfUndefined();
+
+            //Assert
+            action.Should().NotThrow();
+        }
+
+        [TestMethod]
+        public void WhenValueIsDefined_ReturnValueThatWasPassed()
+        {
+            //Arrange
+            var value = Fixture.Create<DummyEnum?>();
+
+            //Act
+            var result = value.ThrowIfUndefined();
+
+            //Assert
+            result.Should().Be(value);
+        }
+
+        [TestMethod]
+        public void WhenValueIsNullableAndDefined_ReturnValueThatWasPassed()
+        {
+            //Arrange
+            var value = Fixture.Create<DummyEnum?>();
+
+            //Act
+            var result = value.ThrowIfUndefined();
+
+            //Assert
+            result.Should().Be(value);
         }
     }
 }
