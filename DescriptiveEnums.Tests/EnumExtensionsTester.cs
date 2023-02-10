@@ -63,6 +63,19 @@ public class EnumExtensionsTester
             //Assert
             result.Should().Be(stringValue);
         }
+
+        [TestMethod]
+        public void WhenEnumContainsDuplicateBaseMemberNames_DoNotThrow()
+        {
+            //Arrange
+            var value = Fixture.Create<EnumWithMemberNames>();
+
+            //Act
+            var action = () => value.GetDescription();
+
+            //Assert
+            action.Should().NotThrow();
+        }
     }
 
     [TestClass]

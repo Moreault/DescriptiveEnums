@@ -16,7 +16,7 @@ public static class EnumExtensions
     /// </summary>
     public static string GetDescription<T>(this T value) where T : struct, Enum
     {
-        var description = typeof(T).GetMember(value.ToString()).Single().GetCustomAttribute<DescriptionAttribute>(true);
+        var description = typeof(T).GetMember(value.ToString()).Select(x => x.GetCustomAttribute<DescriptionAttribute>(true)).SingleOrDefault(x => x != null);
         if (description == null) throw new Exception(string.Format(Exceptions.EnumDoesNotHaveDescription, $"{typeof(T).Name}.{value}"));
         return description.Value;
     }
