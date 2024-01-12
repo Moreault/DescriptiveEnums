@@ -5,6 +5,8 @@ public static class EnumExtensions
     /// <summary>
     /// Returns the "Text" in the enum's [Description("Text")]
     /// </summary>
+    /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="MissingDescriptionException{T}"/>
     public static string GetDescription<T>(this T? value) where T : struct, Enum
     {
         if (value == null) throw new ArgumentNullException(nameof(value));
@@ -14,10 +16,11 @@ public static class EnumExtensions
     /// <summary>
     /// Returns the "Text" in the enum's [Description("Text")]
     /// </summary>
+    /// <exception cref="MissingDescriptionException{T}"/>
     public static string GetDescription<T>(this T value) where T : struct, Enum
     {
         var description = typeof(T).GetMember(value.ToString()).Select(x => x.GetCustomAttribute<DescriptionAttribute>(true)).SingleOrDefault(x => x != null);
-        if (description == null) throw new Exception(string.Format(Exceptions.EnumDoesNotHaveDescription, $"{typeof(T).Name}.{value}"));
+        if (description == null) throw new MissingDescriptionException<T>(value);
         return description.Value;
     }
 
@@ -48,6 +51,8 @@ public static class EnumExtensions
     /// <summary>
     /// Throws an <see cref="ArgumentException"/> if the value is undefined for type T. 
     /// </summary>
+    /// <exception cref="ArgumentException"/>
+    /// <exception cref="ArgumentNullException"/>
     public static T? ThrowIfUndefined<T>(this T? value, string? message = null) where T : struct, Enum
     {
         if (value == null) throw new ArgumentNullException(nameof(value));
@@ -57,6 +62,8 @@ public static class EnumExtensions
     /// <summary>
     /// Throws an <see cref="ArgumentException"/> if the value is undefined for type T. 
     /// </summary>
+    /// <exception cref="ArgumentException"/>
+    /// <exception cref="ArgumentNullException"/>
     public static T ThrowIfUndefined<T>(this T value, string? message = null) where T : struct, Enum
     {
         if (!Enum.IsDefined(value)) 
