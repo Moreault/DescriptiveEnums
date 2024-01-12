@@ -1,4 +1,3 @@
-using AutoFixture;
 using Newtonsoft.Json.Linq;
 
 namespace DescriptiveEnums.Tests;
