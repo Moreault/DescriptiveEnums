@@ -1,5 +1,3 @@
-using Newtonsoft.Json.Linq;
-
 namespace DescriptiveEnums.Tests;
 
 [TestClass]
@@ -12,7 +10,7 @@ public class EnumExtensionsTester
         public void WhenEnumIsNull_Throw()
         {
             //Arrange
-            DummyEnum? value = null;
+            GarbageEnum? value = null;
 
             //Act
             var action = () => value.GetDescription();
@@ -20,12 +18,12 @@ public class EnumExtensionsTester
             //Assert
             action.Should().Throw<ArgumentNullException>().WithParameterName(nameof(value));
         }
-        
+
         [TestMethod]
-        [DataRow("It's something", DummyEnum.Something)]
-        [DataRow("It's something else!", DummyEnum.SomethingElse)]
-        [DataRow("It's the last thing", DummyEnum.OneFinalThing)]
-        public void WhenThereIsAssociatedAttribute_ReturnValue(string stringValue, DummyEnum enumValue)
+        [DataRow("It's something", GarbageEnum.Something)]
+        [DataRow("It's something else!", GarbageEnum.SomethingElse)]
+        [DataRow("It's the last thing", GarbageEnum.OneFinalThing)]
+        public void WhenThereIsAssociatedAttribute_ReturnValue(string stringValue, GarbageEnum enumValue)
         {
             //Arrange
 
@@ -42,17 +40,17 @@ public class EnumExtensionsTester
             //Arrange
 
             //Act
-            var action = () => DummyEnum.AnotherThing.GetDescription();
+            var action = () => GarbageEnum.AnotherThing.GetDescription();
 
             //Assert
-            action.Should().Throw<Exception>().WithMessage(string.Format(Exceptions.EnumDoesNotHaveDescription, "DummyEnum.AnotherThing"));
+            action.Should().Throw<Exception>().WithMessage(string.Format(Exceptions.EnumDoesNotHaveDescription, "GarbageEnum.AnotherThing"));
         }
 
         [TestMethod]
-        [DataRow("It's something", DummyEnum.Something)]
-        [DataRow("It's something else!", DummyEnum.SomethingElse)]
-        [DataRow("It's the last thing", DummyEnum.OneFinalThing)]
-        public void WhenIsNullableButNotNull_Return(string stringValue, DummyEnum? enumValue)
+        [DataRow("It's something", GarbageEnum.Something)]
+        [DataRow("It's something else!", GarbageEnum.SomethingElse)]
+        [DataRow("It's the last thing", GarbageEnum.OneFinalThing)]
+        public void WhenIsNullableButNotNull_Return(string stringValue, GarbageEnum? enumValue)
         {
             //Arrange
 
@@ -67,7 +65,7 @@ public class EnumExtensionsTester
         public void WhenEnumContainsDuplicateBaseMemberNames_DoNotThrow()
         {
             //Arrange
-            var value = Fixture.Create<EnumWithMemberNames>();
+            var value = Dummy.Create<EnumWithMemberNames>();
 
             //Act
             var action = () => value.GetDescription();
@@ -84,7 +82,7 @@ public class EnumExtensionsTester
         public void WhenEnumIsNull_ReturnEmpty()
         {
             //Arrange
-            DummyEnum? value = null;
+            GarbageEnum? value = null;
 
             //Act
             var result = value.TryGetDescription();
@@ -92,12 +90,12 @@ public class EnumExtensionsTester
             //Assert
             result.Should().BeEmpty();
         }
-        
+
         [TestMethod]
-        [DataRow("It's something", DummyEnum.Something)]
-        [DataRow("It's something else!", DummyEnum.SomethingElse)]
-        [DataRow("It's the last thing", DummyEnum.OneFinalThing)]
-        public void WhenThereIsAssociatedAttribute_ReturnValue(string stringValue, DummyEnum enumValue)
+        [DataRow("It's something", GarbageEnum.Something)]
+        [DataRow("It's something else!", GarbageEnum.SomethingElse)]
+        [DataRow("It's the last thing", GarbageEnum.OneFinalThing)]
+        public void WhenThereIsAssociatedAttribute_ReturnValue(string stringValue, GarbageEnum enumValue)
         {
             //Arrange
 
@@ -109,10 +107,10 @@ public class EnumExtensionsTester
         }
 
         [TestMethod]
-        [DataRow("It's something", DummyEnum.Something)]
-        [DataRow("It's something else!", DummyEnum.SomethingElse)]
-        [DataRow("It's the last thing", DummyEnum.OneFinalThing)]
-        public void WhenThereIsAssociatedAttributeOnNullable_ReturnValue(string stringValue, DummyEnum? enumValue)
+        [DataRow("It's something", GarbageEnum.Something)]
+        [DataRow("It's something else!", GarbageEnum.SomethingElse)]
+        [DataRow("It's the last thing", GarbageEnum.OneFinalThing)]
+        public void WhenThereIsAssociatedAttributeOnNullable_ReturnValue(string stringValue, GarbageEnum? enumValue)
         {
             //Arrange
 
@@ -129,7 +127,7 @@ public class EnumExtensionsTester
             //Arrange
 
             //Act
-            var result = DummyEnum.AnotherThing.TryGetDescription();
+            var result = GarbageEnum.AnotherThing.TryGetDescription();
 
             //Assert
             result.Should().Be("AnotherThing");
@@ -139,7 +137,7 @@ public class EnumExtensionsTester
         public void WhenThereIsNoAssociatedAttributeOnNullable_ReturnRegularToString()
         {
             //Arrange
-            DummyEnum? value = DummyEnum.AnotherThing;
+            GarbageEnum? value = GarbageEnum.AnotherThing;
 
             //Act
             var result = value.TryGetDescription();
@@ -148,7 +146,7 @@ public class EnumExtensionsTester
             result.Should().Be("AnotherThing");
         }
     }
-    
+
     [TestClass]
     public class ThrowIfUndefined : Tester
     {
@@ -156,21 +154,21 @@ public class EnumExtensionsTester
         public void WhenValueIsUndefined_Throw()
         {
             //Arrange
-            var value = (DummyEnum)(-14);
+            var value = (GarbageEnum)(-14);
 
             //Act
             var action = () => value.ThrowIfUndefined();
 
             //Assert
-            action.Should().Throw<ArgumentException>().WithMessage(string.Format(Exceptions.EnumValueIsUndefined, value, typeof(DummyEnum)));
+            action.Should().Throw<ArgumentException>().WithMessage(string.Format(Exceptions.EnumValueIsUndefined, value, typeof(GarbageEnum)));
         }
 
         [TestMethod]
         public void WhenValueIsUndefinedWithCustomMessage_ThrowWithCustomMessage()
         {
             //Arrange
-            var value = (DummyEnum)(-14);
-            var message = Fixture.Create<string>();
+            var value = (GarbageEnum)(-14);
+            var message = Dummy.Create<string>();
 
             //Act
             var action = () => value.ThrowIfUndefined(message);
@@ -183,7 +181,7 @@ public class EnumExtensionsTester
         public void WhenValueIsDefined_DoNotThrow()
         {
             //Arrange
-            var value = Fixture.Create<DummyEnum>();
+            var value = Dummy.Create<GarbageEnum>();
 
             //Act
             var action = () => value.ThrowIfUndefined();
@@ -196,7 +194,7 @@ public class EnumExtensionsTester
         public void WhenValueIsDefined_ReturnValueThatWasPassed()
         {
             //Arrange
-            var value = Fixture.Create<DummyEnum>();
+            var value = Dummy.Create<GarbageEnum>();
 
             //Act
             var result = value.ThrowIfUndefined();
@@ -209,7 +207,7 @@ public class EnumExtensionsTester
         public void WhenValueIsNullableAndDefined_ReturnValueThatWasPassed()
         {
             //Arrange
-            var value = Fixture.Create<DummyEnum>();
+            var value = Dummy.Create<GarbageEnum>();
 
             //Act
             var result = value.ThrowIfUndefined();
@@ -226,7 +224,7 @@ public class EnumExtensionsTester
         public void WhenValueIsNull_Throw()
         {
             //Arrange
-            DummyEnum? value = null!;
+            GarbageEnum? value = null!;
 
             //Act
             var action = () => value.ThrowIfUndefined();
@@ -239,21 +237,21 @@ public class EnumExtensionsTester
         public void WhenValueIsUndefined_Throw()
         {
             //Arrange
-            var value = (DummyEnum?)(-14);
+            var value = (GarbageEnum?)(-14);
 
             //Act
             var action = () => value.ThrowIfUndefined();
 
             //Assert
-            action.Should().Throw<ArgumentException>().WithMessage(string.Format(Exceptions.EnumValueIsUndefined, value, typeof(DummyEnum)));
+            action.Should().Throw<ArgumentException>().WithMessage(string.Format(Exceptions.EnumValueIsUndefined, value, typeof(GarbageEnum)));
         }
 
         [TestMethod]
         public void WhenValueIsUndefinedWithCustomMessage_ThrowWithCustomMessage()
         {
             //Arrange
-            var value = (DummyEnum?)(-14);
-            var message = Fixture.Create<string>();
+            var value = (GarbageEnum?)(-14);
+            var message = Dummy.Create<string>();
 
             //Act
             var action = () => value.ThrowIfUndefined(message);
@@ -266,7 +264,7 @@ public class EnumExtensionsTester
         public void WhenValueIsDefined_DoNotThrow()
         {
             //Arrange
-            var value = Fixture.Create<DummyEnum?>();
+            var value = Dummy.Create<GarbageEnum?>();
 
             //Act
             var action = () => value.ThrowIfUndefined();
@@ -279,7 +277,7 @@ public class EnumExtensionsTester
         public void WhenValueIsDefined_ReturnValueThatWasPassed()
         {
             //Arrange
-            var value = Fixture.Create<DummyEnum?>();
+            var value = Dummy.Create<GarbageEnum?>();
 
             //Act
             var result = value.ThrowIfUndefined();
@@ -292,7 +290,7 @@ public class EnumExtensionsTester
         public void WhenValueIsNullableAndDefined_ReturnValueThatWasPassed()
         {
             //Arrange
-            var value = Fixture.Create<DummyEnum?>();
+            var value = Dummy.Create<GarbageEnum?>();
 
             //Act
             var result = value.ThrowIfUndefined();

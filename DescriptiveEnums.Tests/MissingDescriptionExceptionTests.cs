@@ -3,7 +3,7 @@
 [TestClass]
 public sealed class MissingDescriptionExceptionTests : Tester
 {
-    public enum Dummy
+    public enum Garbage
     {
         One,
         Two,
@@ -14,10 +14,10 @@ public sealed class MissingDescriptionExceptionTests : Tester
     public void Constructor_Always_SetValue()
     {
         //Arrange
-        var value = Fixture.Create<Dummy>();
+        var value = Dummy.Create<Garbage>();
 
         //Act
-        var exception = new MissingDescriptionException<Dummy>(value);
+        var exception = new MissingDescriptionException<Garbage>(value);
 
         //Assert
         exception.Value.Should().Be(value);
@@ -27,13 +27,13 @@ public sealed class MissingDescriptionExceptionTests : Tester
     public void Constructor_Always_SetMessage()
     {
         //Arrange
-        var value = Fixture.Create<Dummy>();
+        var value = Dummy.Create<Garbage>();
 
         //Act
-        var exception = new MissingDescriptionException<Dummy>(value);
+        var exception = new MissingDescriptionException<Garbage>(value);
 
         //Assert
-        exception.Message.Should().Be(string.Format(Exceptions.EnumDoesNotHaveDescription, $"{nameof(Dummy)}.{value}"));
+        exception.Message.Should().Be(string.Format(Exceptions.EnumDoesNotHaveDescription, $"{nameof(Garbage)}.{value}"));
     }
 
 }
