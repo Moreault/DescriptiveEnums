@@ -1,6 +1,6 @@
 ﻿namespace DescriptiveEnums.Tests;
 
-public enum DummyEnum
+public enum GarbageEnum
 {
     [ToolBX.DescriptiveEnums.Description("It's something")]
     Something,
