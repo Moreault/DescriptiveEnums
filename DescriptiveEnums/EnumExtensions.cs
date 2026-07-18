@@ -7,7 +7,7 @@ public static class EnumExtensions
     /// </summary>
     /// <exception cref="ArgumentNullException"/>
     /// <exception cref="MissingDescriptionException{T}"/>
-    public static string GetDescription<T>(this T? value) where T : struct, Enum
+    public static string GetDescription<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)] T>(this T? value) where T : struct, Enum
     {
         if (value == null) throw new ArgumentNullException(nameof(value));
         return value.Value.GetDescription();
@@ -17,9 +17,9 @@ public static class EnumExtensions
     /// Returns the "Text" in the enum's [Description("Text")]
     /// </summary>
     /// <exception cref="MissingDescriptionException{T}"/>
-    public static string GetDescription<T>(this T value) where T : struct, Enum
+    public static string GetDescription<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)] T>(this T value) where T : struct, Enum
     {
-        var description = typeof(T).GetMember(value.ToString()).Select(x => x.GetCustomAttribute<DescriptionAttribute>(true)).SingleOrDefault(x => x != null);
+        var description = typeof(T).GetField(value.ToString())?.GetCustomAttribute<DescriptionAttribute>(true);
         if (description == null) throw new MissingDescriptionException<T>(value);
         return description.Value;
     }
@@ -27,7 +27,7 @@ public static class EnumExtensions
     /// <summary>
     /// Returns the "Text" in the enum's [Description("Text")] or the result of enum.ToString() if it has no [Description] attribute on it
     /// </summary>
-    public static string TryGetDescription<T>(this T? value) where T : struct, Enum
+    public static string TryGetDescription<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)] T>(this T? value) where T : struct, Enum
     {
         if (value == null) return string.Empty;
         return value.Value.TryGetDescription();
@@ -36,7 +36,7 @@ public static class EnumExtensions
     /// <summary>
     /// Returns the "Text" in the enum's [Description("Text")] or the result of enum.ToString() if it has no [Description] attribute on it
     /// </summary>
-    public static string TryGetDescription<T>(this T value) where T : struct, Enum
+    public static string TryGetDescription<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)] T>(this T value) where T : struct, Enum
     {
         try
         {
